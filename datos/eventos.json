@@ -1,0 +1,26 @@
+[
+  {
+    "nombre": "Festival de Jazz",
+    "categoria": "musica",
+    "subcategoria": "jazz",
+    "ubicacion": "Bogota",
+    "fecha": "2025-06-10",
+    "descripcion": "Un encuentro con artistas de jazz de todo el mundo."
+  },
+  {
+    "nombre": "Expo Comida Mexicana",
+    "categoria": "comida",
+    "subcategoria": "mexicana",
+    "ubicacion": "Ciudad de Mexico",
+    "fecha": "2025-06-15",
+    "descripcion": "Degustaciones y talleres de cocina mexicana."
+  },
+  {
+    "nombre": "Noche de Teatro Clasico",
+    "categoria": "cultura",
+    "subcategoria": "teatro",
+    "ubicacion": "Medellin",
+    "fecha": "2025-06-20",
+    "descripcion": "Obras de teatro clasico en el centro cultural."
+  }
+]

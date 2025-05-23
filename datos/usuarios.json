@@ -1,0 +1,78 @@
+[
+    {
+        "nombre": "a",
+        "correo": "a",
+        "contrasena": "a",
+        "gustos": {
+            "musica": [
+                "rock",
+                "pop",
+                "jazz"
+            ],
+            "comida": [
+                "mexicana",
+                "italiana",
+                "colombiana"
+            ],
+            "cultura": [
+                "cine"
+            ],
+            "deporte": [
+                "futbol"
+            ]
+        }
+    },
+    {
+        "nombre": "a",
+        "correo": "a",
+        "contrasena": "a",
+        "gustos": {
+            "musica": [
+                "pop",
+                "jazz",
+                "electr\u00f3nica"
+            ],
+            "comida": [
+                "mexicana",
+                "italiana",
+                "colombiana",
+                "china"
+            ],
+            "cultura": [
+                "zool\u00f3gico",
+                "danza",
+                "cine"
+            ],
+            "deporte": [
+                "futbol",
+                "baloncesto"
+            ]
+        }
+    },
+    {
+        "nombre": "a",
+        "correo": "a",
+        "contrasena": "a",
+        "gustos": {
+            "musica": [
+                "pop",
+                "jazz",
+                "electr\u00f3nica"
+            ],
+            "comida": [
+                "mexicana",
+                "italiana",
+                "colombiana"
+            ],
+            "cultura": [
+                "danza",
+                "cine"
+            ],
+            "deporte": [
+                "futbol",
+                "baloncesto",
+                "tenis"
+            ]
+        }
+    }
+]
