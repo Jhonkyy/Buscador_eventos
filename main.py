@@ -10,7 +10,10 @@ def menu_usuario(usuario):
         print("1. Ver recomendaciones")
         print("2. Ver eventos cercanos")
         print("3. Modificar gustos")
-        print("4. Cerrar sesión")
+        print("4. Ver eventos por categoría")
+        print("5. Buscar eventos (búsqueda avanzada)")
+        print("6. Agendar eventos")
+        print("7. Cerrar sesión")
         opcion = input("Elige una opción: ")
 
         if opcion == "1":
