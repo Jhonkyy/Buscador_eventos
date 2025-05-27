@@ -83,7 +83,13 @@ def modificar_gustos(usuario):
     }
     gustos = seleccionar_gustos(opciones_gustos)
     usuario.gustos = gustos
-    sistema.guardar_usuarios()
+    # Actualiza gustos directamente en la base de datos
+    import sqlite3, json
+    conn = sqlite3.connect(sistema.db_path)
+    c = conn.cursor()
+    c.execute("UPDATE usuarios SET gustos=? WHERE correo=?", (json.dumps(usuario.gustos), usuario.correo))
+    conn.commit()
+    conn.close()
     print("¡Gustos actualizados!")
 
 def ver_eventos_por_categoria():
