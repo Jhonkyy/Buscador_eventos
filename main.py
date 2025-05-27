@@ -3,6 +3,7 @@ from modelos.sistema import Sistema
 from modelos.usuario import Usuario
 
 sistema = Sistema()
+CATEGORIAS_VALIDAS = ['musica', 'comida', 'cultura', 'deporte']
 
 def menu_usuario(usuario):
     while True:
@@ -36,6 +37,12 @@ def menu_usuario(usuario):
         elif opcion == "3":
             modificar_gustos(usuario)
         elif opcion == "4":
+            ver_eventos_por_categoria()
+        elif opcion == "5":
+            busqueda_avanzada_eventos(usuario)
+        elif opcion == "6":
+            menu_agendados(usuario)
+        elif opcion == "7":
             break
         else:
             print("Opción no válida.")
@@ -70,8 +77,10 @@ def registrar():
     gustos = seleccionar_gustos(opciones_gustos)
 
     usuario = Usuario(nombre, correo, contrasena, gustos)
-    sistema.registrar_usuario(usuario)
-    print("¡Usuario registrado exitosamente!")
+    if sistema.registrar_usuario(usuario):
+        print("¡Usuario registrado exitosamente!")
+    else:
+        print("No se pudo registrar el usuario. El correo ya está en uso.")
 
 # Usar en modificar gustos:
 def modificar_gustos(usuario):
@@ -201,7 +210,6 @@ def main():
         if opcion == "1":
             registrar()
         elif opcion == "2":
-
             login()
         elif opcion == "3":
             print("Hasta luego.")
