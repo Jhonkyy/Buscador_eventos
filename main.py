@@ -86,6 +86,95 @@ def modificar_gustos(usuario):
     sistema.guardar_usuarios()
     print("¡Gustos actualizados!")
 
+def ver_eventos_por_categoria():
+    print("\nElige la categoría para ver eventos:")
+    for i, cat in enumerate(CATEGORIAS_VALIDAS, 1):
+        print(f"{i}. {cat.capitalize()}")
+
+    while True:
+        opcion = input("Selecciona una opción (número): ")
+        if opcion.isdigit() and 1 <= int(opcion) <= len(CATEGORIAS_VALIDAS):
+            categoria_seleccionada = CATEGORIAS_VALIDAS[int(opcion)-1]
+            break
+        else:
+            print("Opción inválida. Intenta de nuevo.")
+
+    eventos_filtrados = [e for e in sistema.cargar_eventos() if e.categoria.lower() == categoria_seleccionada]
+
+    if eventos_filtrados:
+        print(f"\nEventos en la categoría '{categoria_seleccionada}':")
+        for evento in eventos_filtrados:
+            print(evento)
+    else:
+        print(f"No se encontraron eventos en la categoría '{categoria_seleccionada}'.")
+
+def busqueda_avanzada_eventos(usuario):
+    print("\n--- Búsqueda avanzada de eventos ---")
+    nombre = input("Nombre del evento (dejar vacío para ignorar): ").strip() or None
+    print("Categorías:", ", ".join(CATEGORIAS_VALIDAS))
+    categoria = input("Categoría (dejar vacío para ignorar): ").strip() or None
+    subcategoria = input("Subcategoría (dejar vacío para ignorar): ").strip() or None
+    ciudad = input("Ciudad (dejar vacío para ignorar): ").strip() or None
+    fecha = input("Fecha (YYYY-MM-DD, dejar vacío para ignorar): ").strip() or None
+
+    eventos = sistema.buscar_eventos_avanzado(nombre, categoria, subcategoria, ciudad, fecha)
+    if eventos:
+        print("\nResultados de la búsqueda:")
+        for idx, evento in enumerate(eventos, 1):
+            print(f"{idx}. {evento}")
+        # Opción para agendar eventos (permite varios)
+        agendar = input("¿Deseas agendar alguno? (número(s) separados por coma o Enter para omitir): ").strip()
+        if agendar:
+            indices = [int(x.strip()) for x in agendar.split(",") if x.strip().isdigit() and 1 <= int(x.strip()) <= len(eventos)]
+            for idx in indices:
+                evento = eventos[idx-1]
+                evento_id = sistema.obtener_id_evento(evento.nombre, evento.fecha)
+                if evento_id:
+                    sistema.agendar_evento(usuario.correo, evento_id)
+            if indices:
+                print("¡Evento(s) agendado(s)!")
+    else:
+        print("No se encontraron eventos con esos filtros.")
+
+def menu_agendados(usuario):
+    while True:
+        print("\n--- Tus eventos agendados ---")
+        agendados = sistema.obtener_agendados(usuario.correo)
+        if agendados:
+            for idx, evento in enumerate(agendados, 1):
+                print(f"{idx}. {evento}")
+        else:
+            print("No tienes eventos agendados.")
+        print("1. Desagendar un evento")
+        print("2. Enviar recordatorio de un evento por correo")
+        print("3. Volver")
+        opcion = input("Elige una opción: ")
+        if opcion == "1" and agendados:
+            num = input("Número del evento a desagendar: ")
+            if num.isdigit() and 1 <= int(num) <= len(agendados):
+                evento = agendados[int(num)-1]
+                evento_id = sistema.obtener_id_evento(evento.nombre, evento.fecha)
+                if evento_id:
+                    sistema.desagendar_evento(usuario.correo, evento_id)
+                    print("Evento desagendado.")
+            else:
+                print("Opción inválida.")
+        elif opcion == "2" and agendados:
+            num = input("Número del evento para enviar recordatorio: ")
+            if num.isdigit() and 1 <= int(num) <= len(agendados):
+                evento = agendados[int(num)-1]
+                exito = sistema.enviar_recordatorio(usuario.correo, evento)
+                if exito:
+                    print("¡Recordatorio enviado por correo!")
+                else:
+                    print("No se pudo enviar el correo.")
+            else:
+                print("Opción inválida.")
+        elif opcion == "3":
+            break
+        else:
+            print("Opción inválida.")
+
 def login():
     print("\n--- Iniciar sesión ---")
     correo = input("Correo: ")
